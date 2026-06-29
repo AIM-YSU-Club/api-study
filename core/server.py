@@ -36,5 +36,17 @@ def get_age(birth_date: str):
     }
 
 
+# 숙제 - 양재모 : 두 수 입력 받아서 사칙연산 API
+@app.get('/gobsem')
+def gobsem(a: int, b: int):
+
+    return{
+        "result1": str(a + b),
+        "result2": str(a - b),
+        "result3": str(a * b),
+        "result4": str(a / b)
+    }
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
