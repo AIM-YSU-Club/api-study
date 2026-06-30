@@ -3,9 +3,11 @@ import uvicorn
 
 app = FastAPI(title="Study")
 
+
 @app.get('/')
 def read_root():
     return {"Hello": "World"}
+
 
 @app.get('/add')
 def add_numbers(a: int, b: int):
@@ -20,6 +22,8 @@ def add_numbers(a: int, b: int):
 # =======
 
 # 숙제 - 우재성 : 생년월일로 나이 계산 API
+
+
 @app.get('/get_age')
 def get_age(birth_date: str):
     # 연도로 나이 계산
@@ -33,6 +37,24 @@ def get_age(birth_date: str):
 
     return {
         "current_age": str(age)
+    }
+
+
+# 숙제 - 홍서준 : 원화를 달러로 환전해주는 API
+exchange_usd = 1550  # 2026.06.30 기준 환율
+
+
+@app.get('/get_exchange')  # url 파라미터 생성
+def get_exchange(krw: float):  # krw 타입 명시
+
+    # 환전
+    usd = krw / exchange_usd
+
+    # json 형식으로 출력
+    return {
+        "원화": krw,
+        "환율": exchange_usd,
+        "환전된 금액(달러)": round(usd, 2)
     }
 
 
