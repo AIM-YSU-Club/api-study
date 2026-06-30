@@ -39,6 +39,18 @@ def get_age(birth_date: str):
         "current_age": str(age)
     }
 
+# 숙제 - 이상엽 : 할인가 계산 API
+@app.get('/discount')
+def get_discount(price: int, rate: float):
+    discount_amount = price * rate / 100
+    final_price = price - discount_amount
+
+    return {
+        "original_price": price,
+        "discount_rate": str(rate) + "%",
+        "discount_amount": int(discount_amount),
+        "discount_price": int(final_price)
+    }
 
 # 숙제 - 홍서준 : 원화를 달러로 환전해주는 API
 exchange_usd = 1550  # 2026.06.30 기준 환율
@@ -57,6 +69,38 @@ def get_exchange(krw: float):  # krw 타입 명시
         "환전된 금액(달러)": round(usd, 2)
     }
 
+
+# 숙제 - 양재모 : 두 수 입력 받아서 사칙연산 API
+@app.get('/gobsem')
+def gobsem(a: int, b: int):
+
+    return{
+        "result1": str(a + b),
+        "result2": str(a - b),
+        "result3": str(a * b),
+        "result4": str(a / b)
+    }
+
+# 숙제 - 양승일 : BMI API 등록 (반드시 uvicorn.run 보다 위!)
+@app.get("/bmi")
+def calculate_bmi(height: float, weight: float):
+    height_m = height / 100
+    bmi = round(weight / (height_m ** 2), 2)
+    
+    if bmi < 18.5:
+        status = "저체중"
+    elif bmi < 23:
+        status = "정상"
+    elif bmi < 25:
+        status = "과체중"
+    else:
+        status = "비만"
+        
+    return {
+        "message": "BMI 계산 성공!",
+        "bmi": bmi,
+        "status": status
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
