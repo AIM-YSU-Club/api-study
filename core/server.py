@@ -60,6 +60,26 @@ def gobsem(a: int, b: int):
         "result4": str(a / b)
     }
 
-
+# 숙제 - 양승일 : BMI API 등록 (반드시 uvicorn.run 보다 위!)
+@app.get("/bmi")
+def calculate_bmi(height: float, weight: float):
+    height_m = height / 100
+    bmi = round(weight / (height_m ** 2), 2)
+    
+    if bmi < 18.5:
+        status = "저체중"
+    elif bmi < 23:
+        status = "정상"
+    elif bmi < 25:
+        status = "과체중"
+    else:
+        status = "비만"
+        
+    return {
+        "message": "BMI 계산 성공!",
+        "bmi": bmi,
+        "status": status
+    }
+  
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
