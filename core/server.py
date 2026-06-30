@@ -35,6 +35,19 @@ def get_age(birth_date: str):
         "current_age": str(age)
     }
 
+# 숙제 - 이상엽 : 할인가 계산 API
+@app.get('/discount')
+def get_discount(price: int, rate: float):
+    discount_amount = price * rate / 100
+    final_price = price - discount_amount
+
+    return {
+        "original_price": price,
+        "discount_rate": str(rate) + "%",
+        "discount_amount": int(discount_amount),
+        "discount_price": int(final_price)
+    }
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
