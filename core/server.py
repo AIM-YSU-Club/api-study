@@ -102,5 +102,13 @@ def calculate_bmi(height: float, weight: float):
         "status": status
     }
 
+# 숙제 - 유성원 : 구구단 API 등록
+@app.get("/gugudan")
+def gugudan(number: int):
+    result = [f"{number} x {i} = {number * i}" for i in range(1, 10)]
+    return {
+        "gugudan": result
+    }
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
